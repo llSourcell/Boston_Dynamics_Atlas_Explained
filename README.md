@@ -1,6 +1,6 @@
-# bipedal-robot-walking-simulation
+## Overview
 
-bipedal robot walking simulation using pybullet.
+This is the code for [this](https://youtu.be/lXZ6y3lMymM) video on Youtube by Siraj Raval on the Boston Dynamics Atlas Robot. It's a bipedal robot walking simulation using the [pybullet](https://pypi.org/project/pybullet/) library 
 
 ## walking_simulation_example.py
 
@@ -23,3 +23,7 @@ This generates gait points. Has inverse kinematics function.
 ## motorController.py
 
 Helps to control motors. Time-based control.
+
+## Credits
+
+Credits for this code go to [einsbon](https://github.com/Einsbon/). I've merely created a wrapper to get people started. 
