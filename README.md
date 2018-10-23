@@ -1,6 +1,6 @@
 ## Overview
 
-This is the code for [this](https://youtu.be/lXZ6y3lMymM) video on Youtube by Siraj Raval on the Boston Dynamics Atlas Robot. It's a bipedal robot walking simulation using the [pybullet](https://pypi.org/project/pybullet/) library 
+This is the code for [this](https://youtu.be/lXZ6y3lMymM) video on Youtube by Siraj Raval on the Boston Dynamics Atlas Robot. It's a bipedal robot walking simulation using the [pybullet](https://pypi.org/project/pybullet/) library. 
 
 ## walking_simulation_example.py
 
