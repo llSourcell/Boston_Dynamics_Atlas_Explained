@@ -1,0 +1,916 @@
+<?xml version="1.0" ?>
+<robot name="humanoid">
+    <link name="body">
+        <visual>
+			<geometry>
+				<box size="0.050 0.11 0.150"/>
+			</geometry>
+		    <origin xyz="0 0 0.395" rpy="0 0 0"/>
+            <axis xyz="0 0 0" />
+			<material name="blue">
+	       		<color rgba="0.1 0.1 1 1.0"/>
+	     	</material>
+		</visual>
+        <inertial>
+            <mass value="0.8"/>
+            <inertia ixx="0.0023066666666666665" ixy="0.0" ixz="0.0" iyy="0.001666666666666667" iyz="0.0" izz="0.0009733333333333334"/>
+        </inertial>
+        <collision>
+			<geometry>
+				<box size="0.050 0.11 0.150"/>
+			</geometry>
+		    <origin xyz="0 0 0.395" rpy="0 0 0"/>
+        </collision>
+    </link>
+
+
+    <joint name="fixed_waist" type="fixed">
+        <parent link="body"/>
+        <child link="waist"/>
+    </joint>
+
+    <link name="waist">
+        <visual>
+			<geometry>
+				<box size="0.0285 0.093 0.034"/>
+			</geometry>
+		    <origin xyz="0 0 0.303" rpy="0 0 0"/>
+            <axis xyz="0 0 0" />
+			<material name="motorColor">
+	       		<color rgba="0.2 0.2 0.2 1.0"/>
+	     	</material>
+		</visual>
+        <inertial>
+            <mass value="0.116"/>
+            <inertia ixx="9.478166666666668e-05" ixy="0.0" ixz="0.0" iyy="1.902641666666667e-05" iyz="0.0" izz="9.145875000000002e-05"/>
+        </inertial>
+        <collision>
+			<geometry>
+				<box size="0.0285 0.093 0.034"/>
+			</geometry>
+		    <origin xyz="0 0 0.303" rpy="0 0 0"/>
+        </collision>
+    </link>
+
+    <!-- Right leg -->
+    
+    <joint name="jointHipRZ" type="revolute">
+        <parent link="waist"/>
+        <child link="hipCylinderRZ"/>
+        <origin xyz="0 -0.03525 0.25" rpy="0 0 0"/>
+        <axis xyz="0 0 1"/>
+    	<limit effort="10" lower="-3" upper="+3" velocity="10"/>
+        <dynamics damping="0"/>
+    </joint>
+
+    <link name="hipCylinderRZ">
+        <visual>
+			<geometry>
+				<cylinder length="0.04" radius="0.01"/>
+			</geometry>
+		    <origin xyz="0 0 0.02" rpy="0 0 0"/>
+            <axis xyz="0 0 0" />
+			<material name="red">
+	       		<color rgba="1 0.0 0.0 1.0"/>
+	     	</material>
+		</visual>
+        <inertial>
+            <mass value="0"/>
+            <inertia ixx="0" ixy="0" ixz="0.0" iyy="0" iyz="0.0" izz="0"/>
+        </inertial>
+    </link>
+
+    <joint name="jointHipRX" type="revolute">
+        <parent link="hipCylinderRZ"/>
+        <child link="hipCylinderRX"/>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <axis xyz="1 0 0"/>
+    	<limit effort="10" lower="-3" upper="+3" velocity="10"/>
+        <dynamics damping="0"/>
+    </joint>
+
+    <link name="hipCylinderRX">
+        <visual>
+			<geometry>
+				<cylinder length="0.0725" radius="0.01"/>
+			</geometry>
+		    <origin xyz="-0.017 0 0" rpy="0 1.57075 0"/>
+            <axis xyz="0 0 0" />
+			<material name="red"/>
+		</visual>
+        <inertial>
+            <mass value="0"/>
+            <inertia ixx="0" ixy="0" ixz="0.0" iyy="0" iyz="0.0" izz="0"/>
+        </inertial>
+    </link>
+
+    <joint name="jointHipRY" type="revolute">
+        <parent link="hipCylinderRX"/>
+        <child link="hipCylinderRY"/>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <axis xyz="0 1 0"/>
+    	<limit effort="10" lower="-3" upper="+3" velocity="10"/>
+        <dynamics damping="0"/>
+    </joint>
+
+    <link name="hipCylinderRY">
+        <visual>
+			<geometry>
+				<cylinder length="0.044" radius="0.01"/>
+			</geometry>
+		    <origin xyz="0 0 0" rpy="1.57075 0 0"/>
+            <axis xyz="0 0 0" />
+			<material name="red"/>
+		</visual>
+        <inertial>
+            <mass value="0"/>
+            <inertia ixx="0" ixy="0" ixz="0.0" iyy="0" iyz="0.0" izz="0"/>
+        </inertial>
+    </link>
+
+    <joint name="jointKneeRY" type="revolute">
+        <parent link="hipCylinderRY"/>
+        <child link="kneeCylinderRY"/>
+        <origin xyz="0 0 -0.11" rpy="0 0 0"/>
+        <axis xyz="0 1 0"/>
+    	<limit effort="10" lower="-3" upper="+3" velocity="10"/>
+        <dynamics damping="0"/>
+    </joint>
+
+    <link name="kneeCylinderRY">
+        <visual>
+			<geometry>
+				<cylinder length="0.044" radius="0.01"/>
+			</geometry>
+		    <origin xyz="0 0 0" rpy="1.57075 0 0"/>
+            <axis xyz="0 0 0" />
+			<material name="red"/>
+		</visual>
+        <inertial>
+            <mass value="0"/>
+            <inertia ixx="0" ixy="0" ixz="0.0" iyy="0" iyz="0.0" izz="0"/>
+        </inertial>
+    </link>
+
+    <joint name="jointankleRY" type="revolute">
+        <parent link="kneeCylinderRY"/>
+        <child link="ankleCylinderRY"/>
+        <origin xyz="0 0 -0.11" rpy="0 0 0"/>
+        <axis xyz="0 1 0"/>
+    	<limit effort="10" lower="-3" upper="+3" velocity="10"/>
+        <dynamics damping="0"/>
+    </joint>
+
+    <link name="ankleCylinderRY">
+        <visual>
+			<geometry>
+				<cylinder length="0.044" radius="0.01"/>
+			</geometry>
+		    <origin xyz="0 0 0" rpy="1.57075 0 0"/>
+            <axis xyz="0 0 0" />
+			<material name="red"/>
+		</visual>
+        <inertial>
+            <mass value="0"/>
+            <inertia ixx="0" ixy="0" ixz="0.0" iyy="0" iyz="0.0" izz="0"/>
+        </inertial>
+    </link>
+
+    <joint name="jointankleRX" type="revolute">
+        <parent link="ankleCylinderRY"/>
+        <child link="ankleCylinderRX"/>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <axis xyz="1 0 0"/>
+    	<limit effort="10" lower="-3" upper="+3" velocity="10"/>
+        <dynamics damping="0"/>
+    </joint>
+
+    <link name="ankleCylinderRX">
+        <visual>
+			<geometry>
+				<cylinder length="0.0725" radius="0.01"/>
+			</geometry>
+		    <origin xyz="-0.017 0 0" rpy="0 1.57075 0"/>
+            <axis xyz="0 0 0" />
+			<material name="red"/>
+		</visual>
+        <inertial>
+            <mass value="0"/>
+            <inertia ixx="0" ixy="0" ixz="0.0" iyy="0" iyz="0.0" izz="0"/>
+        </inertial>
+    </link>
+     	
+    <!-- Left leg -->
+    
+    <joint name="jointHipLZ" type="revolute">
+        <parent link="waist"/>
+        <child link="hipCylinderLZ"/>
+        <origin xyz="0 0.03525 0.25" rpy="0 0 0"/>
+        <axis xyz="0 0 1"/>
+    	<limit effort="10" lower="-3" upper="+3" velocity="10"/>
+        <dynamics damping="0"/>
+    </joint>
+
+    <link name="hipCylinderLZ">
+        <visual>
+			<geometry>
+				<cylinder length="0.04" radius="0.01"/>
+			</geometry>
+		    <origin xyz="0 0 0.02" rpy="0 0 0"/>
+            <axis xyz="0 0 0" />
+			<material name="red">
+	       		<color rgba="1 0.0 0.0 1.0"/>
+	     	</material>
+		</visual>
+        <inertial>
+            <mass value="0"/>
+            <inertia ixx="0" ixy="0" ixz="0.0" iyy="0" iyz="0.0" izz="0"/>
+        </inertial>
+    </link>
+
+    <joint name="jointHipLX" type="revolute">
+        <parent link="hipCylinderLZ"/>
+        <child link="hipCylinderLX"/>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <axis xyz="1 0 0"/>
+    	<limit effort="10" lower="-3" upper="+3" velocity="10"/>
+        <dynamics damping="0"/>
+    </joint>
+
+    <link name="hipCylinderLX">
+        <visual>
+			<geometry>
+				<cylinder length="0.0725" radius="0.01"/>
+			</geometry>
+		    <origin xyz="-0.017 0 0" rpy="0 1.57075 0"/>
+            <axis xyz="0 0 0" />
+			<material name="red"/>
+		</visual>
+        <inertial>
+            <mass value="0"/>
+            <inertia ixx="0" ixy="0" ixz="0.0" iyy="0" iyz="0.0" izz="0"/>
+        </inertial>
+    </link>
+
+    <joint name="jointHipLY" type="revolute">
+        <parent link="hipCylinderLX"/>
+        <child link="hipCylinderLY"/>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <axis xyz="0 1 0"/>
+    	<limit effort="10" lower="-3" upper="+3" velocity="10"/>
+        <dynamics damping="0"/>
+    </joint>
+
+    <link name="hipCylinderLY">
+        <visual>
+			<geometry>
+				<cylinder length="0.044" radius="0.01"/>
+			</geometry>
+		    <origin xyz="0 0 0" rpy="1.57075 0 0"/>
+            <axis xyz="0 0 0" />
+			<material name="red"/>
+		</visual>
+        <inertial>
+            <mass value="0"/>
+            <inertia ixx="0" ixy="0" ixz="0.0" iyy="0" iyz="0.0" izz="0"/>
+        </inertial>
+    </link>
+
+    <joint name="jointKneeLY" type="revolute">
+        <parent link="hipCylinderLY"/>
+        <child link="kneeCylinderLY"/>
+        <origin xyz="0 0 -0.11" rpy="0 0 0"/>
+        <axis xyz="0 1 0"/>
+    	<limit effort="10" lower="-3" upper="+3" velocity="10"/>
+        <dynamics damping="0"/>
+    </joint>
+
+    <link name="kneeCylinderLY">
+        <visual>
+			<geometry>
+				<cylinder length="0.044" radius="0.01"/>
+			</geometry>
+		    <origin xyz="0 0 0" rpy="1.57075 0 0"/>
+            <axis xyz="0 0 0" />
+			<material name="red"/>
+		</visual>
+        <inertial>
+            <mass value="0"/>
+            <inertia ixx="0" ixy="0" ixz="0.0" iyy="0" iyz="0.0" izz="0"/>
+        </inertial>
+    </link>
+
+    <joint name="jointankleLY" type="revolute">
+        <parent link="kneeCylinderLY"/>
+        <child link="ankleCylinderLY"/>
+        <origin xyz="0 0 -0.11" rpy="0 0 0"/>
+        <axis xyz="0 1 0"/>
+    	<limit effort="10" lower="-3" upper="+3" velocity="10"/>
+        <dynamics damping="0"/>
+    </joint>
+
+    <link name="ankleCylinderLY">
+        <visual>
+			<geometry>
+				<cylinder length="0.044" radius="0.01"/>
+			</geometry>
+		    <origin xyz="0 0 0" rpy="1.57075 0 0"/>
+            <axis xyz="0 0 0" />
+			<material name="red"/>
+		</visual>
+        <inertial>
+            <mass value="0"/>
+            <inertia ixx="0" ixy="0" ixz="0.0" iyy="0" iyz="0.0" izz="0"/>
+        </inertial>
+    </link>
+
+    <joint name="jointankleLX" type="revolute">
+        <parent link="ankleCylinderLY"/>
+        <child link="ankleCylinderLX"/>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <axis xyz="1 0 0"/>
+    	<limit effort="10" lower="-3" upper="+3" velocity="10"/>
+        <dynamics damping="0"/>
+    </joint>
+
+    <link name="ankleCylinderLX">
+        <visual>
+			<geometry>
+				<cylinder length="0.0725" radius="0.01"/>
+			</geometry>
+		    <origin xyz="-0.017 0 0" rpy="0 1.57075 0"/>
+            <axis xyz="0 0 0" />
+			<material name="red"/>
+		</visual>
+        <inertial>
+            <mass value="0"/>
+            <inertia ixx="0" ixy="0" ixz="0.0" iyy="0" iyz="0.0" izz="0"/>
+        </inertial>
+    </link>
+
+
+
+
+    <!-- Decorations R -->
+    
+    
+    <joint name="fixed_hipBridgeR" type="fixed">
+        <parent link="hipCylinderRZ"/>
+        <child link="hipBridgeR"/>
+    </joint>
+    
+    <link name="hipBridgeR">
+      <visual>
+			<geometry>
+				<box size="0.0685 0.02 0.046"/>
+			</geometry>
+		    <origin xyz="-0.017 0 0.023" rpy="0 0 0"/>
+			<material name="linkColor">
+	       		<color rgba="0.8 0.8 0.8 1.0"/>
+	     	</material>
+		</visual>
+        <inertial>
+            <mass value="0.03"/>
+            <inertia ixx="6.29e-06" ixy="0.0" ixz="0.0" iyy="1.7020625000000003e-05" iyz="0.0" izz="1.2730625000000003e-05"/>
+        </inertial>
+        <collision>
+			<geometry>
+				<box size="0.0685 0.02 0.046"/>
+			</geometry>
+		    <origin xyz="-0.017 0 0.023" rpy="0 0 0"/>
+        </collision>
+    </link>
+    
+    <joint name="fixed_hipMotorRF" type="fixed">
+        <parent link="hipCylinderRX"/>
+        <child link="hipMotorRF"/>
+    </joint>
+    
+    <link name="hipMotorRF">
+        <visual>
+			<geometry>
+				<box size="0.0285 0.034 0.0465"/>
+			</geometry>
+		    <origin xyz="0 0 -0.01225" rpy="0 0 0"/>
+            <axis xyz="0 0 0" />
+			<material name="motorColor">
+	       		<color rgba="0.2 0.2 0.2 1.0"/>
+	     	</material>
+		</visual>
+        <inertial>
+            <mass value="0.058"/>
+            <inertia ixx="1.6038208333333333e-05" ixy="0.0" ixz="0.0" iyy="1.4376750000000003e-05" iyz="0.0" izz="9.513208333333336e-06"/>
+        </inertial>
+        <collision>
+			<geometry>
+				<box size="0.0285 0.034 0.0465"/>
+			</geometry>
+		    <origin xyz="0 0 -0.01225" rpy="0 0 0"/>
+        </collision>
+    </link>
+    
+    <joint name="fixed_hipMotorRB" type="fixed">
+        <parent link="hipCylinderRX"/>
+        <child link="hipMotorRB"/>
+    </joint>
+
+    <link name="hipMotorRB">
+        <visual>
+			<geometry>
+				<box size="0.034 0.0285 0.0465"/>
+			</geometry>
+		    <origin xyz="-0.0315 0 -0.01225" rpy="0 0 0"/>
+            <axis xyz="0 0 0" />
+			<material name="motorColor"/>
+		</visual>
+        <inertial>
+            <mass value="0.058"/>
+            <inertia ixx="1.4376750000000003e-05" ixy="0.0" ixz="0.0" iyy="1.6038208333333333e-05" iyz="0.0" izz="9.513208333333336e-06"/>
+        </inertial>
+        <collision>
+			<geometry>
+				<box size="0.034 0.0285 0.0465"/>
+			</geometry>
+		    <origin xyz="-0.0315 0 -0.01225" rpy="0 0 0"/>
+        </collision>
+    </link>
+    
+    <joint name="fixed_legUpR" type="fixed">
+        <parent link="hipCylinderRY"/>
+        <child link="legUpR"/>
+    </joint>
+ 
+    <link name="legUpR">
+        <visual>
+            <geometry>
+                <box size="0.02 0.04 0.11"/>
+            </geometry>
+            <origin xyz="0 0 -0.055"/>
+            <axis xyz="0 0 0" />
+            <material name="linkColor"/>
+        </visual>
+        <inertial>
+            <mass value="0.03"/>
+            <inertia ixx="3.425e-05" ixy="0.0" ixz="0.0" iyy="3.1249999999999994e-05" iyz="0.0" izz="5e-06"/>
+        </inertial>
+        <collision>
+            <geometry>
+                <box size="0.02 0.04 0.11"/>
+            </geometry>
+            <origin xyz="0 0 -0.055"/>
+        </collision>
+    </link>
+    
+    <joint name="fixed_kneeMotorR" type="fixed">
+        <parent link="kneeCylinderRY"/>
+        <child link="kneeMotorR"/>
+    </joint>
+    
+    <link name="kneeMotorR">
+        <visual>
+			<geometry>
+				<box size="0.034 0.0285 0.0465"/>
+			</geometry>
+		    <origin xyz="0 0 -0.01225" rpy="0 0 0"/>
+            <axis xyz="0 0 0" />
+            <material name="motorColor"/>
+		</visual>
+        <inertial>
+            <mass value="0.058"/>
+            <inertia ixx="1.4376750000000003e-05" ixy="0.0" ixz="0.0" iyy="1.6038208333333333e-05" iyz="0.0" izz="1.6038208333333333e-05"/>
+        </inertial>
+        <collision>
+			<geometry>
+				<box size="0.034 0.0285 0.0465"/>
+			</geometry>
+		    <origin xyz="0 0 -0.01225" rpy="0 0 0"/>
+        </collision>
+    </link>
+
+    <joint name="fixed_legDownR" type="fixed">
+        <parent link="kneeCylinderRY"/>
+        <child link="legDownR"/>
+    </joint>
+    
+    <link name="legDownR">
+        <visual>
+            <geometry>
+                <box size="0.02 0.04 0.07475"/>
+            </geometry>
+            <origin xyz="0 0 -0.073625"/>
+            <axis xyz="0 0 0" />
+            <material name="linkColor"/>
+        </visual>
+        <inertial>
+            <mass value="0.03"/>
+            <inertia ixx="1.796890625e-05" ixy="0.0" ixz="0.0" iyy="1.4968906249999999e-05" iyz="0.0" izz="5e-06"/>
+        </inertial>
+        <collision>
+            <geometry>
+                <box size="0.02 0.04 0.07475"/>
+            </geometry>
+            <origin xyz="0 0 -0.073625"/>
+        </collision>
+    </link>
+
+    <joint name="fixed_ankleMotorRF" type="fixed">
+        <parent link="ankleCylinderRY"/>
+        <child link="ankleMotorRF"/>
+    </joint>
+
+    <link name="ankleMotorRF">
+        <visual>
+			<geometry>
+				<box size="0.0285 0.034 0.0465"/>
+			</geometry>
+		    <origin xyz="0 0 0.01225" rpy="0 0 0"/>
+            <axis xyz="0 0 0" />
+            <material name="motorColor"/>
+		</visual>
+        <inertial>
+            <mass value="0.058"/>
+            <inertia ixx="1.6038208333333333e-05" ixy="0.0" ixz="0.0" iyy="1.4376750000000003e-05" iyz="0.0" izz="9.513208333333336e-06"/>
+        </inertial>
+        <collision>
+			<geometry>
+				<box size="0.0285 0.034 0.0465"/>
+			</geometry>
+		    <origin xyz="0 0 0.01225" rpy="0 0 0"/>
+        </collision>
+    </link>
+
+    <joint name="fixed_ankleMotorRB" type="fixed">
+        <parent link="ankleCylinderRY"/>
+        <child link="ankleMotorRB"/>
+    </joint>
+    
+    <link name="ankleMotorRB">
+        <visual>
+			<geometry>
+				<box size="0.034 0.0285 0.0465"/>
+			</geometry>
+		    <origin xyz="-0.0315 0 0.01225" rpy="0 0 0"/>
+            <axis xyz="0 0 0" />
+            <material name="motorColor"/>
+		</visual>
+        <inertial>
+            <mass value="0.058"/>
+            <inertia ixx="1.4376750000000003e-05" ixy="0.0" ixz="0.0" iyy="1.6038208333333333e-05" iyz="0.0" izz="9.513208333333336e-06"/>
+        </inertial>
+        <collision>
+			<geometry>
+				<box size="0.034 0.0285 0.0465"/>
+			</geometry>
+		    <origin xyz="-0.0315 0 0.01225" rpy="0 0 0"/>
+        </collision>
+    </link>
+
+    <joint name="fixed_footBridgeR" type="fixed">
+        <parent link="ankleCylinderRX"/>
+        <child link="footBridgeR"/>
+    </joint>
+
+    <link name = "footBridgeR">
+        <visual>
+			<geometry>
+				<box size="0.0685 0.02 0.025"/>
+			</geometry>
+		    <origin xyz="-0.017 0 -0.0125" rpy="0 0 0"/>
+            <axis xyz="0 0 0" />
+            <material name="linkColor"/>
+		</visual>
+        <inertial>
+            <mass value="0.009"/>
+            <inertia ixx="8.541666666666668e-07" ixy="0.0" ixz="0.0" iyy="4.431041666666667e-06" iyz="0.0" izz="4.243541666666668e-06"/>
+        </inertial>
+        <collision>
+			<geometry>
+				<box size="0.0685 0.02 0.025"/>
+			</geometry>
+		    <origin xyz="-0.017 0 -0.0125" rpy="0 0 0"/>
+        </collision>
+    </link>
+
+    <joint name="fixed_footR" type="fixed">
+        <parent link="ankleCylinderRX"/>
+        <child link="footR"/>
+    </joint>
+
+    <link name="footR">
+        <visual>
+			<geometry>
+				<box size="0.10 0.05 0.005"/>
+			</geometry>
+		    <origin xyz="0.0 -0.0 -0.0275" rpy="0 0 0"/>
+            <axis xyz="0 0 0" />
+            <material name="footColor">
+	       		<color rgba="0 1 1 1.0"/>
+            </material>
+		</visual>
+        <inertial>
+            <mass value="0.025"/>
+            <inertia ixx="1.026041666666667e-05" ixy="0.0" ixz="0.0" iyy="4.692708333333334e-05" iyz="0.0" izz="5.7083333333333336e-05"/>
+        </inertial>
+        <!--
+        <collision>
+			<geometry>
+				<box size="0.15 0.04 0.02"/>
+			</geometry>
+		    <origin xyz="0.02 -0.015 -0.02" rpy="0 0 0"/>
+        </collision>
+        <collision>
+			<geometry>
+				<box size="0.12 0.07 0.02"/>
+			</geometry>
+		    <origin xyz="0.02 -0.015 -0.02" rpy="0 0 0"/>
+        </collision>
+        -->
+        <collision>
+			<geometry>
+				<box size="0.10 0.05 0.02"/>
+			</geometry>
+		    <origin xyz="0.00 -0.00 -0.02" rpy="0 0 0"/>
+        </collision>
+    </link>
+
+    <!-- Decorations L -->
+    
+    <joint name="fixed_hipBridgeL" type="fixed">
+        <parent link="hipCylinderLZ"/>
+        <child link="hipBridgeL"/>
+    </joint>
+    
+    <link name="hipBridgeL">
+      <visual>
+			<geometry>
+				<box size="0.0685 0.02 0.046"/>
+			</geometry>
+		    <origin xyz="-0.017 0 0.023" rpy="0 0 0"/>
+			<material name="linkColor">
+	       		<color rgba="0.8 0.8 0.8 1.0"/>
+	     	</material>
+		</visual>
+        <inertial>
+            <mass value="0.03"/>
+            <inertia ixx="6.29e-06" ixy="0.0" ixz="0.0" iyy="1.7020625000000003e-05" iyz="0.0" izz="1.2730625000000003e-05"/>
+        </inertial>
+        <collision>
+			<geometry>
+				<box size="0.0685 0.02 0.046"/>
+			</geometry>
+		    <origin xyz="-0.017 0 0.023" rpy="0 0 0"/>
+        </collision>
+    </link>
+    
+    <joint name="fixed_hipMotorLF" type="fixed">
+        <parent link="hipCylinderLX"/>
+        <child link="hipMotorLF"/>
+    </joint>
+    
+    <link name="hipMotorLF">
+        <visual>
+			<geometry>
+				<box size="0.0285 0.034 0.0465"/>
+			</geometry>
+		    <origin xyz="0 0 -0.01225" rpy="0 0 0"/>
+            <axis xyz="0 0 0" />
+			<material name="motorColor">
+	       		<color rgba="0.2 0.2 0.2 1.0"/>
+	     	</material>
+		</visual>
+        <inertial>
+            <mass value="0.058"/>
+            <inertia ixx="1.6038208333333333e-05" ixy="0.0" ixz="0.0" iyy="1.4376750000000003e-05" iyz="0.0" izz="9.513208333333336e-06"/>
+        </inertial>
+        <collision>
+			<geometry>
+				<box size="0.0285 0.034 0.0465"/>
+			</geometry>
+		    <origin xyz="0 0 -0.01225" rpy="0 0 0"/>
+        </collision>
+    </link>
+    
+    <joint name="fixed_hipMotorLB" type="fixed">
+        <parent link="hipCylinderLX"/>
+        <child link="hipMotorLB"/>
+    </joint>
+
+    <link name="hipMotorLB">
+        <visual>
+			<geometry>
+				<box size="0.034 0.0285 0.0465"/>
+			</geometry>
+		    <origin xyz="-0.0315 0 -0.01225" rpy="0 0 0"/>
+            <axis xyz="0 0 0" />
+			<material name="motorColor"/>
+		</visual>
+        <inertial>
+            <mass value="0.058"/>
+            <inertia ixx="1.4376750000000003e-05" ixy="0.0" ixz="0.0" iyy="1.6038208333333333e-05" iyz="0.0" izz="9.513208333333336e-06"/>
+        </inertial>
+        <collision>
+			<geometry>
+				<box size="0.034 0.0285 0.0465"/>
+			</geometry>
+		    <origin xyz="-0.0315 0 -0.01225" rpy="0 0 0"/>
+        </collision>
+    </link>
+    
+    <joint name="fixed_legUpL" type="fixed">
+        <parent link="hipCylinderLY"/>
+        <child link="legUpL"/>
+    </joint>
+ 
+    <link name="legUpL">
+        <visual>
+            <geometry>
+                <box size="0.02 0.04 0.11"/>
+            </geometry>
+            <origin xyz="0 0 -0.055"/>
+            <axis xyz="0 0 0" />
+            <material name="linkColor"/>
+        </visual>
+        <inertial>
+            <mass value="0.03"/>
+            <inertia ixx="3.425e-05" ixy="0.0" ixz="0.0" iyy="3.1249999999999994e-05" iyz="0.0" izz="5e-06"/>
+        </inertial>
+        <collision>
+            <geometry>
+                <box size="0.02 0.04 0.11"/>
+            </geometry>
+            <origin xyz="0 0 -0.055"/>
+        </collision>
+    </link>
+    
+    <joint name="fixed_kneeMotorL" type="fixed">
+        <parent link="kneeCylinderLY"/>
+        <child link="kneeMotorL"/>
+    </joint>
+    
+    <link name="kneeMotorL">
+        <visual>
+			<geometry>
+				<box size="0.034 0.0285 0.0465"/>
+			</geometry>
+		    <origin xyz="0 0 -0.01225" rpy="0 0 0"/>
+            <axis xyz="0 0 0" />
+            <material name="motorColor"/>
+		</visual>
+        <inertial>
+            <mass value="0.058"/>
+            <inertia ixx="1.4376750000000003e-05" ixy="0.0" ixz="0.0" iyy="1.6038208333333333e-05" iyz="0.0" izz="1.6038208333333333e-05"/>
+        </inertial>
+        <collision>
+			<geometry>
+				<box size="0.034 0.0285 0.0465"/>
+			</geometry>
+		    <origin xyz="0 0 -0.01225" rpy="0 0 0"/>
+        </collision>
+    </link>
+
+    <joint name="fixed_legDownL" type="fixed">
+        <parent link="kneeCylinderLY"/>
+        <child link="legDownL"/>
+    </joint>
+    
+    <link name="legDownL">
+        <visual>
+            <geometry>
+                <box size="0.02 0.04 0.07475"/>
+            </geometry>
+            <origin xyz="0 0 -0.073625"/>
+            <axis xyz="0 0 0" />
+            <material name="linkColor"/>
+        </visual>
+        <inertial>
+            <mass value="0.03"/>
+            <inertia ixx="1.796890625e-05" ixy="0.0" ixz="0.0" iyy="1.4968906249999999e-05" iyz="0.0" izz="5e-06"/>
+        </inertial>
+        <collision>
+            <geometry>
+                <box size="0.02 0.04 0.07475"/>
+            </geometry>
+            <origin xyz="0 0 -0.073625"/>
+        </collision>
+    </link>
+
+    <joint name="fixed_ankleMotorLF" type="fixed">
+        <parent link="ankleCylinderLY"/>
+        <child link="ankleMotorLF"/>
+    </joint>
+
+    <link name="ankleMotorLF">
+        <visual>
+			<geometry>
+				<box size="0.0285 0.034 0.0465"/>
+			</geometry>
+		    <origin xyz="0 0 0.01225" rpy="0 0 0"/>
+            <axis xyz="0 0 0" />
+            <material name="motorColor"/>
+		</visual>
+        <inertial>
+            <mass value="0.058"/>
+            <inertia ixx="1.6038208333333333e-05" ixy="0.0" ixz="0.0" iyy="1.4376750000000003e-05" iyz="0.0" izz="9.513208333333336e-06"/>
+        </inertial>
+        <collision>
+			<geometry>
+				<box size="0.0285 0.034 0.0465"/>
+			</geometry>
+		    <origin xyz="0 0 0.01225" rpy="0 0 0"/>
+        </collision>
+    </link>
+
+    <joint name="fixed_ankleMotorLB" type="fixed">
+        <parent link="ankleCylinderLY"/>
+        <child link="ankleMotorLB"/>
+    </joint>
+    
+    <link name="ankleMotorLB">
+        <visual>
+			<geometry>
+				<box size="0.034 0.0285 0.0465"/>
+			</geometry>
+		    <origin xyz="-0.0315 0 0.01225" rpy="0 0 0"/>
+            <axis xyz="0 0 0" />
+            <material name="motorColor"/>
+		</visual>
+        <inertial>
+            <mass value="0.058"/>
+            <inertia ixx="1.4376750000000003e-05" ixy="0.0" ixz="0.0" iyy="1.6038208333333333e-05" iyz="0.0" izz="9.513208333333336e-06"/>
+        </inertial>
+        <collision>
+			<geometry>
+				<box size="0.034 0.0285 0.0465"/>
+			</geometry>
+		    <origin xyz="-0.0315 0 0.01225" rpy="0 0 0"/>
+        </collision>
+    </link>
+
+    <joint name="fixed_footBridgeL" type="fixed">
+        <parent link="ankleCylinderLX"/>
+        <child link="footBridgeL"/>
+    </joint>
+
+    <link name = "footBridgeL">
+        <visual>
+			<geometry>
+				<box size="0.0685 0.02 0.025"/>
+			</geometry>
+		    <origin xyz="-0.017 0 -0.0125" rpy="0 0 0"/>
+            <axis xyz="0 0 0" />
+            <material name="linkColor"/>
+		</visual>
+        <inertial>
+            <mass value="0.009"/>
+            <inertia ixx="8.541666666666668e-07" ixy="0.0" ixz="0.0" iyy="4.431041666666667e-06" iyz="0.0" izz="4.243541666666668e-06"/>
+        </inertial>
+        <collision>
+			<geometry>
+				<box size="0.0685 0.02 0.025"/>
+			</geometry>
+		    <origin xyz="-0.017 0 -0.0125" rpy="0 0 0"/>
+        </collision>
+    </link>
+
+    <joint name="fixed_ankleCylinderLX" type="fixed">
+        <parent link="ankleCylinderLX"/>
+        <child link="footL"/>
+    </joint>
+
+    <link name="footL">
+        <visual>
+			<geometry>
+				<box size="0.10 0.05 0.005"/>
+			</geometry>
+		    <origin xyz="0.0 0.0 -0.0275" rpy="0 0 0"/>
+            <axis xyz="0 0 0" />
+            <material name="footColor">
+	       		<color rgba="0 1 1 1.0"/>
+            </material>
+		</visual>
+        <inertial>
+            <mass value="0.025"/>
+            <inertia ixx="1.026041666666667e-05" ixy="0.0" ixz="0.0" iyy="4.692708333333334e-05" iyz="0.0" izz="5.7083333333333336e-05"/>
+        </inertial>
+        <!--
+        <collision>
+			<geometry>
+				<box size="0.15 0.04 0.02"/>
+			</geometry>
+		    <origin xyz="0.02 0.015 -0.02" rpy="0 0 0"/>
+        </collision>
+        <collision>
+			<geometry>
+				<box size="0.12 0.07 0.02"/>
+			</geometry>
+		    <origin xyz="0.02 0.015 -0.02" rpy="0 0 0"/>
+        </collision>
+        -->
+        <collision>
+			<geometry>
+				<box size="0.10 0.05 0.02"/>
+			</geometry>
+		    <origin xyz="0.00 0.000 -0.02" rpy="0 0 0"/>
+        </collision>
+    </link>
+</robot>
